@@ -1,4 +1,7 @@
-﻿using FiapCloudGames.Users.Infrastructure.Repositories.v1;
+﻿using FiapCloudGames.Users.Domain.Entities;
+using FiapCloudGames.Users.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics.CodeAnalysis;
@@ -6,15 +9,24 @@ using System.Diagnostics.CodeAnalysis;
 namespace FiapCloudGames.Users.Infrastructure.Seed;
 
 [ExcludeFromCodeCoverage]
-public sealed class DataSeederHostedService(ILogger<DataSeederHostedService> logger) : IHostedService
+public sealed class DataSeederHostedService(
+    ILogger<DataSeederHostedService> logger,
+    IServiceProvider serviceProvider) : IHostedService
 {
-    public Task StartAsync(CancellationToken cancellationToken)
+    public async Task StartAsync(CancellationToken cancellationToken)
     {
-        UsuarioRepository.Seed();
+        using IServiceScope scope = serviceProvider.CreateScope();
+        AppDbContext context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+        if (await context.Usuarios.AnyAsync(cancellationToken))
+            return;
+
+        IEnumerable<Usuario> usuarios = UsuarioSeed.GetUsuarios();
+
+        await context.Usuarios.AddRangeAsync(usuarios, cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
 
         logger.LogInformation("Dados iniciais populados com sucesso!");
-
-        return Task.CompletedTask;
     }
 
     public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;

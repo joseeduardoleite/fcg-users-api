@@ -7,7 +7,10 @@ using FiapCloudGames.Users.Api.Utils;
 using FiapCloudGames.Users.Application;
 using FiapCloudGames.Users.Application.Validators;
 using FiapCloudGames.Users.Infrastructure;
+using FiapCloudGames.Users.Infrastructure.Data;
 using FluentValidation;
+using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -79,6 +82,23 @@ builder.Services.AddSwaggerExamplesFromAssemblyOf<Program>();
 builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("UsersDb")));
+
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(builder.Configuration["RabbitMQ:Host"], "/", h =>
+        {
+            h.Username(builder.Configuration["RabbitMQ:Username"]!);
+            h.Password(builder.Configuration["RabbitMQ:Password"]!);
+        });
+    });
+});
+
+builder.Services.AddHealthChecks();
+
 WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -107,5 +127,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHealthChecks("/health");
 
 await app.RunAsync();

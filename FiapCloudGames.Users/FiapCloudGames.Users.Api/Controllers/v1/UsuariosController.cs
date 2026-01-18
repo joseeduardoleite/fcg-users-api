@@ -126,8 +126,11 @@ public sealed class UsuariosController(IUsuarioAppService usuarioAppService, IVa
     [ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden)]
     public async Task<ActionResult<UsuarioDto>> UpdateAsync([FromRoute] Guid id, [FromBody] UsuarioDto usuarioDto, CancellationToken cancellationToken)
     {
-        if (!IsOwnerOrAdmin((Guid)usuarioDto.Id!))
+        if (!IsOwnerOrAdmin(id))
             return Forbid();
+
+        if (usuarioDto.Id.HasValue && usuarioDto.Id != id)
+            return BadRequest("Id do corpo não bate com a rota.");
 
         UsuarioDto usuarioEditado = await usuarioAppService.EditarUsuarioAsync(id, usuarioDto, cancellationToken);
 

@@ -1,6 +1,8 @@
 ﻿using FiapCloudGames.Users.Application.Interfaces.Auth;
+using FiapCloudGames.Users.Application.Interfaces.Messaging;
 using FiapCloudGames.Users.Domain.Repositories.v1;
 using FiapCloudGames.Users.Infrastructure.Auth;
+using FiapCloudGames.Users.Infrastructure.Messaging;
 using FiapCloudGames.Users.Infrastructure.Repositories.v1;
 using FiapCloudGames.Users.Infrastructure.Seed;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,7 +19,8 @@ public static class InfrastructureDependencyInjection
 {
     public static IServiceCollection AddInfraModule(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton<IUsuarioRepository, UsuarioRepository>();
+        services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+        services.AddScoped<IUserEventPublisher, UserEventPublisher>();
 
         services.AddHostedService<DataSeederHostedService>();
 

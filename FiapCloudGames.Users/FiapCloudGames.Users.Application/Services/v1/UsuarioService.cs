@@ -1,10 +1,13 @@
-﻿using FiapCloudGames.Users.Domain.Entities;
+﻿using FiapCloudGames.Users.Application.Interfaces.Messaging;
+using FiapCloudGames.Users.Domain.Entities;
 using FiapCloudGames.Users.Domain.Repositories.v1;
 using FiapCloudGames.Users.Domain.Services.v1;
 
 namespace FiapCloudGames.Users.Application.Services.v1;
 
-public sealed class UsuarioService(IUsuarioRepository usuarioRepository) : IUsuarioService
+public sealed class UsuarioService(
+    IUsuarioRepository usuarioRepository,
+    IUserEventPublisher userEventPublisher) : IUsuarioService
 {
     public async Task<IEnumerable<Usuario>> ObterUsuariosAsync(CancellationToken cancellationToken)
         => await usuarioRepository.ObterUsuariosAsync(cancellationToken);
@@ -16,7 +19,13 @@ public sealed class UsuarioService(IUsuarioRepository usuarioRepository) : IUsua
         => !string.IsNullOrEmpty(email) ? await usuarioRepository.ObterUsuarioPorEmailAsync(email, cancellationToken) : null;
 
     public async Task<Usuario> CriarUsuarioAsync(Usuario usuario, CancellationToken cancellationToken)
-        => await usuarioRepository.CriarUsuarioAsync(usuario, cancellationToken);
+    {
+        Usuario usuarioCriado = await usuarioRepository.CriarUsuarioAsync(usuario, cancellationToken);
+
+        await userEventPublisher.PublishUserCreatedAsync(usuarioCriado);
+
+        return usuarioCriado;
+    }
 
     public async Task<Usuario?> EditarUsuarioAsync(Guid id, Usuario usuario, CancellationToken cancellationToken)
         => await usuarioRepository.EditarUsuarioAsync(id, usuario, cancellationToken);
