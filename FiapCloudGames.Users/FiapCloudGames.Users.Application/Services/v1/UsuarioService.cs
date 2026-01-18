@@ -22,7 +22,7 @@ public sealed class UsuarioService(
     {
         Usuario usuarioCriado = await usuarioRepository.CriarUsuarioAsync(usuario, cancellationToken);
 
-        await userEventPublisher.PublishUserCreatedAsync(usuarioCriado);
+        await userEventPublisher.PublishUserCreatedAsync(usuarioCriado, cancellationToken);
 
         return usuarioCriado;
     }

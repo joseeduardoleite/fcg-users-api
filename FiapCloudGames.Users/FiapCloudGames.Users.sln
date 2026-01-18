@@ -3,13 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiapCloudGames.Users.Api", "FiapCloudGames.Users.Api\FiapCloudGames.Users.Api.csproj", "{A8F4C605-7349-439A-A494-F4A063D1F861}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FiapCloudGames.Users.Api", "FiapCloudGames.Users.Api\FiapCloudGames.Users.Api.csproj", "{A8F4C605-7349-439A-A494-F4A063D1F861}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiapCloudGames.Users.Application", "FiapCloudGames.Users.Application\FiapCloudGames.Users.Application.csproj", "{2AC44D12-D640-47C6-A11A-466E4C0B9FAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FiapCloudGames.Users.Application", "FiapCloudGames.Users.Application\FiapCloudGames.Users.Application.csproj", "{2AC44D12-D640-47C6-A11A-466E4C0B9FAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiapCloudGames.Users.Domain", "FiapCloudGames.Users.Domain\FiapCloudGames.Users.Domain.csproj", "{53DF2880-5358-4F59-AF2E-F7FC3A9FEFF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FiapCloudGames.Users.Domain", "FiapCloudGames.Users.Domain\FiapCloudGames.Users.Domain.csproj", "{53DF2880-5358-4F59-AF2E-F7FC3A9FEFF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiapCloudGames.Users.Infrastructure", "FiapCloudGames.Users.Infrastructure\FiapCloudGames.Users.Infrastructure.csproj", "{D04763E3-18FE-4273-9FE6-7A0E39591F28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FiapCloudGames.Users.Infrastructure", "FiapCloudGames.Users.Infrastructure\FiapCloudGames.Users.Infrastructure.csproj", "{D04763E3-18FE-4273-9FE6-7A0E39591F28}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FiapCloudGames.Users.Tests", "FiapCloudGames.Users.Tests", "{C52D973B-7C8C-481F-A7DC-C9DAF4891DDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiapCloudGames.Users.Api.Tests", "FiapCloudGames.Users.Tests\FiapCloudGames.Users.Api.Tests\FiapCloudGames.Users.Api.Tests.csproj", "{DB9C3083-E442-4E26-A82A-5177CAAA932A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiapCloudGames.Users.Application.Tests", "FiapCloudGames.Users.Tests\FiapCloudGames.Users.Application.Tests\FiapCloudGames.Users.Application.Tests.csproj", "{0AF13CD0-0541-405B-B8C6-A075F87ECE38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +39,21 @@ Global
 		{D04763E3-18FE-4273-9FE6-7A0E39591F28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D04763E3-18FE-4273-9FE6-7A0E39591F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D04763E3-18FE-4273-9FE6-7A0E39591F28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB9C3083-E442-4E26-A82A-5177CAAA932A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB9C3083-E442-4E26-A82A-5177CAAA932A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB9C3083-E442-4E26-A82A-5177CAAA932A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB9C3083-E442-4E26-A82A-5177CAAA932A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AF13CD0-0541-405B-B8C6-A075F87ECE38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AF13CD0-0541-405B-B8C6-A075F87ECE38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AF13CD0-0541-405B-B8C6-A075F87ECE38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AF13CD0-0541-405B-B8C6-A075F87ECE38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DB9C3083-E442-4E26-A82A-5177CAAA932A} = {C52D973B-7C8C-481F-A7DC-C9DAF4891DDC}
+		{0AF13CD0-0541-405B-B8C6-A075F87ECE38} = {C52D973B-7C8C-481F-A7DC-C9DAF4891DDC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {57588FFA-28C9-4741-B61C-3C6FD6A8D5CA}

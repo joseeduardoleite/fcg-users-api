@@ -7,7 +7,7 @@ namespace FiapCloudGames.Users.Infrastructure.Messaging;
 
 public class UserEventPublisher(IPublishEndpoint publishEndpoint) : IUserEventPublisher
 {
-    public Task PublishUserCreatedAsync(Usuario usuario)
+    public Task PublishUserCreatedAsync(Usuario usuario, CancellationToken cancellationToken)
     {
         var evt = new UserCreatedEvent
         {
@@ -17,6 +17,6 @@ public class UserEventPublisher(IPublishEndpoint publishEndpoint) : IUserEventPu
             CriadoEm = usuario.CriadoEm ?? DateTime.UtcNow
         };
 
-        return publishEndpoint.Publish(evt);
+        return publishEndpoint.Publish(evt, cancellationToken);
     }
 }
