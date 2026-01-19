@@ -1,4 +1,5 @@
-﻿using FiapCloudGames.Users.Domain.Entities;
+﻿using FiapCloudGames.Users.Application.Interfaces.Messaging;
+using FiapCloudGames.Users.Domain.Entities;
 using FiapCloudGames.Users.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,8 @@ namespace FiapCloudGames.Users.Infrastructure.Seed;
 [ExcludeFromCodeCoverage]
 public sealed class DataSeederHostedService(
     ILogger<DataSeederHostedService> logger,
-    IServiceProvider serviceProvider) : IHostedService
+    IServiceProvider serviceProvider,
+    IUserEventPublisher userEventPublisher) : IHostedService
 {
     public async Task StartAsync(CancellationToken cancellationToken)
     {
@@ -25,6 +27,9 @@ public sealed class DataSeederHostedService(
 
         await context.Usuarios.AddRangeAsync(usuarios, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
+
+        foreach (var usuario in usuarios)
+            await userEventPublisher.PublishUserCreatedAsync(usuario, cancellationToken);
 
         logger.LogInformation("Dados iniciais populados com sucesso!");
     }

@@ -25,16 +25,6 @@ public static class UsuarioSeed
                 nome: "Eduardo",
                 email: "eduardo.fcg@gmail.com",
                 senha: "Eduardo@1234"
-            ),
-            new(
-                nome: "João",
-                email: "joão.fcg@gmail.com",
-                senha: "Joao@1234"
-            ),
-            new(
-                nome: "Maria",
-                email: "maria.fcg@gmail.com",
-                senha: "Maria@1234"
             )
         };
 }
