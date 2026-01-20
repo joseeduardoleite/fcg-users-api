@@ -1,8 +1,6 @@
-﻿using FiapCloudGames.Users.Domain.Entities;
-
-namespace FiapCloudGames.Users.Application.Interfaces.Messaging;
+﻿namespace FiapCloudGames.Users.Application.Interfaces.Messaging;
 
 public interface IUserEventPublisher
 {
-    Task PublishUserCreatedAsync(Usuario usuario, CancellationToken cancellationToken);
+    Task PublishUserCreatedAsync(Guid usuarioId, string nomeUsuario, CancellationToken cancellationToken);
 }

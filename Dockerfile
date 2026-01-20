@@ -2,8 +2,8 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 COPY . .
-RUN dotnet restore
-RUN dotnet publish  FiapCloudGames.Users.Api.csproj \
+RUN dotnet restore FiapCloudGames.Users/FiapCloudGames.Users.Api/FiapCloudGames.Users.Api.csproj
+RUN dotnet publish FiapCloudGames.Users/FiapCloudGames.Users.Api/FiapCloudGames.Users.Api.csproj \
     -c Release -o /app/publish /p:UseAppHost=false
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime

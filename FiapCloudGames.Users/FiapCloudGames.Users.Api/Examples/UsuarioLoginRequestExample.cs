@@ -8,7 +8,7 @@ namespace FiapCloudGames.Users.Api.Examples;
 public sealed class UsuarioLoginRequestExample : IExamplesProvider<UsuarioLoginDto>
 {
     public UsuarioLoginDto GetExamples() => new(
-        Email: "jose.fgc@gmail.com",
-        Senha: "Jose@1234"
+        Email: "admin.fcg@gmail.com",
+        Senha: "Admin@1234"
     );
 }

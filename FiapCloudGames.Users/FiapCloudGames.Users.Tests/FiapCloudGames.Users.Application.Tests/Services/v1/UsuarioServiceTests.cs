@@ -98,7 +98,7 @@ public class UsuarioServiceTests
             .ReturnsAsync(usuario);
 
         _userEventPublisherMock
-            .Setup(x => x.PublishUserCreatedAsync(usuario, It.IsAny<CancellationToken>()))
+            .Setup(x => x.PublishUserCreatedAsync(usuario.Id, usuario.Nome!, It.IsAny<CancellationToken>()))
             .Returns(Task.CompletedTask);
 
         var result = await _usuarioService.CriarUsuarioAsync(usuario, CancellationToken.None);

@@ -30,7 +30,7 @@ public sealed class DataSeederHostedService(
         await context.SaveChangesAsync(cancellationToken);
 
         foreach (var usuario in usuarios)
-            await userEventPublisher.PublishUserCreatedAsync(usuario, cancellationToken);
+            await userEventPublisher.PublishUserCreatedAsync(usuario.Id, usuario.Nome!, cancellationToken);
 
         logger.LogInformation("Dados iniciais populados com sucesso!");
     }

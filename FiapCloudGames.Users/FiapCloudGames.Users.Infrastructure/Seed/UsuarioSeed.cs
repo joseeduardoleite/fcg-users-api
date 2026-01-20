@@ -10,12 +10,6 @@ public static class UsuarioSeed
         => new List<Usuario>()
         {
             new(
-                nome: "José",
-                email: "jose.fcg@gmail.com",
-                senha: "Jose@1234",
-                role: Domain.Enums.ERole.Admin
-            ),
-            new(
                 nome: "Admin",
                 email: "admin.fcg@gmail.com",
                 senha: "Admin@1234",
