@@ -12,13 +12,14 @@ namespace FiapCloudGames.Users.Infrastructure.Seed;
 [ExcludeFromCodeCoverage]
 public sealed class DataSeederHostedService(
     ILogger<DataSeederHostedService> logger,
-    IServiceProvider serviceProvider,
-    IUserEventPublisher userEventPublisher) : IHostedService
+    IServiceProvider serviceProvider) : IHostedService
 {
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         using IServiceScope scope = serviceProvider.CreateScope();
         AppDbContext context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+        var userEventPublisher = scope.ServiceProvider.GetRequiredService<IUserEventPublisher>();
 
         if (await context.Usuarios.AnyAsync(cancellationToken))
             return;
